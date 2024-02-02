@@ -14,7 +14,7 @@ to_date_str = "2023-12-31"
 input_file = r"zst files/{}_submissions.zst".format(subreddit_name)
 
 # put the name or path to the output file. The file extension from below will be added automatically. If the input file is a folder, the output will be treated as a folder as well
-output_file = r"output/{}_ids_full".format(subreddit_name)
+output_file = r"output/{}_ids".format(subreddit_name)
 
 # the format to output in, pick from the following options
 #   zst: same as the input, a zstandard compressed ndjson file. Can be read by the other scripts in the repo
