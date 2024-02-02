@@ -6,30 +6,36 @@ import csv
 from datetime import datetime
 import logging.handlers
 
+subreddit_name = 'youtubers'
+from_date_str = "2010-01-01"
+to_date_str = "2023-12-31"
+
 # put the path to the input file, or a folder of files to process all of
-input_file = r"\\MYCLOUDPR4100\Public\reddit\subreddits/CryptoCurrency_submissions.zst"
+input_file = r"zst files/{}_submissions.zst".format(subreddit_name)
+
 # put the name or path to the output file. The file extension from below will be added automatically. If the input file is a folder, the output will be treated as a folder as well
-output_file = r"\\MYCLOUDPR4100\Public\output"
+output_file = r"output/{}_ids_full".format(subreddit_name)
+
 # the format to output in, pick from the following options
 #   zst: same as the input, a zstandard compressed ndjson file. Can be read by the other scripts in the repo
 #   txt: an ndjson file, which is a text file with a separate json object on each line. Can be opened by any text editor
 #   csv: a comma separated value file. Can be opened by a text editor or excel
 # WARNING READ THIS: if you use txt or csv output on a large input file without filtering out most of the rows, the resulting file will be extremely large. Usually about 7 times as large as the compressed input file
-output_format = "csv"
+output_format = "txt"
 # override the above format and output only this field into a text file, one per line. Useful if you want to make a list of authors or ids. See the examples below
 # any field that's in the dump is supported, but useful ones are
 #   author: the username of the author
 #   id: the id of the submission or comment
 #   link_id: only for comments, the fullname of the submission the comment is associated with
 #   parent_id: only for comments, the fullname of the parent of the comment. Either another comment or the submission if it's top level
-single_field = None
+single_field = "id"
 # the fields in the file are different depending on whether it has comments or submissions. If we're writing a csv, we need to know which fields to write.
 # set this to true to write out to the log every time there's a bad line, set to false if you're expecting only some of the lines to match the key
 write_bad_lines = True
 
 # only output items between these two dates
-from_date = datetime.strptime("2022-01-01", "%Y-%m-%d")
-to_date = datetime.strptime("2022-12-31", "%Y-%m-%d")
+from_date = datetime.strptime(from_date_str, "%Y-%m-%d")
+to_date = datetime.strptime(to_date_str, "%Y-%m-%d")
 
 # the field to filter on, the values to filter with and whether it should be an exact match
 # some examples:
@@ -56,8 +62,8 @@ to_date = datetime.strptime("2022-12-31", "%Y-%m-%d")
 # output_file = "filtered_submissions"
 # output_format = "csv"
 # field = "author"
-# values = ["watchful1"]
-#
+# values = ["RallyX26"]
+# 
 # run the script, this will result in a file called "filtered_submissions.csv" that contains only submissions by u/watchful1
 # now we'll run the script again with the same input and filters, but set the output to single field. Be sure to change the output file to a new name, but don't change any of the other inputs
 # output_file = "submission_ids"

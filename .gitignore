@@ -4,3 +4,7 @@ __pycache__/*
 *.db
 *.ini
 *.txt
+zst files/
+temp.json
+sample.jsonl
+scripts/logs/*

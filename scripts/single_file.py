@@ -6,6 +6,8 @@ import json
 import sys
 from datetime import datetime
 import logging.handlers
+from itertools import islice
+
 
 
 log = logging.getLogger("bot")
@@ -52,19 +54,22 @@ if __name__ == "__main__":
 	file_lines = 0
 	file_bytes_processed = 0
 	created = None
-	field = "subreddit"
-	value = "wallstreetbets"
+	# field = "subreddit"
+	# value = "wallstreetbets"
 	bad_lines = 0
 	# try:
 	for line, file_bytes_processed in read_lines_zst(file_path):
+	# for line, file_bytes_processed in islice(read_lines_zst(file_path), 0, 10):
 		try:
 			obj = json.loads(line)
 			created = datetime.utcfromtimestamp(int(obj['created_utc']))
-			temp = obj[field] == value
+			# temp = obj[field] == value
+			# print(obj)
 		except (KeyError, json.JSONDecodeError) as err:
 			bad_lines += 1
+			log.error(f"bad line encountered: {obj}")
 		file_lines += 1
-		if file_lines % 100000 == 0:
+		if file_lines % 1000 == 0:
 			log.info(f"{created.strftime('%Y-%m-%d %H:%M:%S')} : {file_lines:,} : {bad_lines:,} : {file_bytes_processed:,}:{(file_bytes_processed / file_size) * 100:.0f}%")
 
 	# except Exception as err:

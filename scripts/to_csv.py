@@ -14,6 +14,8 @@ import sys
 import csv
 from datetime import datetime
 import logging.handlers
+from itertools import islice
+
 
 
 log = logging.getLogger("bot")
@@ -66,7 +68,9 @@ if __name__ == "__main__":
 	writer = csv.writer(output_file)
 	writer.writerow(fields)
 	try:
-		for line, file_bytes_processed in read_lines_zst(input_file_path):
+		# for line, file_bytes_processed in read_lines_zst(input_file_path):
+		for line, file_bytes_processed in islice(read_lines_zst(input_file_path), 0, 10):
+
 			try:
 				obj = json.loads(line)
 				output_obj = []
@@ -78,7 +82,7 @@ if __name__ == "__main__":
 			except json.JSONDecodeError as err:
 				bad_lines += 1
 			file_lines += 1
-			if file_lines % 100000 == 0:
+			if file_lines % 10000 == 0:
 				log.info(f"{created.strftime('%Y-%m-%d %H:%M:%S')} : {file_lines:,} : {bad_lines:,} : {(file_bytes_processed / file_size) * 100:.0f}%")
 	except KeyError as err:
 		log.info(f"Object has no key: {err}")

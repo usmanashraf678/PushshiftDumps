@@ -51,9 +51,9 @@ def read_lines_zst(file_name):
 input_folder = sys.argv[1]
 input_files = []
 total_size = 0
-for subdir, dirs, files in os.walk(input_folder):
+for curr_dir, dirs, files in os.walk(input_folder):
 	for filename in files:
-		input_path = os.path.join(subdir, filename)
+		input_path = os.path.join(curr_dir, filename)
 		if input_path.endswith(".zst"):
 			file_size = os.stat(input_path).st_size
 			total_size += file_size
