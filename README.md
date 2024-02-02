@@ -11,14 +11,14 @@ This repo has been adapted from the original [Pushshift Dumps repo](https://gith
 
 ## How to use this repo to extract IDs of all posts made in a subreddit?
 
-Step 0: Before running the script, the input files (i.e. the zst submissions files downloaded from the torrent link) should be placed in the `zst_files` folder. The file should be named as {subreddit_name}_submissions.zst where {subreddit_name} is the name of the subreddit.
+**Step 0:** Before running the script, the input files (i.e. the zst submissions files downloaded from the torrent link) should be placed in the `zst_files` folder. The file should be named as {subreddit_name}_submissions.zst where {subreddit_name} is the name of the subreddit.
 
-Step 1: Activate the local environment using the following command:
+**Step 1:** Activate the local environment using the following command:
 ```powershell  
 pipenv shell
 ```
 
-Step 1a: The following commands can be used to check if the environment has been activated:
+**Step 1a:** The following commands can be used to check if the environment has been activated:
 
 ```powershell
 # in powershell
@@ -32,19 +32,19 @@ where python
 
 This should return the path to the Python executable being used. Make sure this is poining to the python executable in the virtual environment.
 
-Step 2: Install the required packages using the following command:
+**Step 2:** Install the required packages using the following command:
 ```powershell
 pipenv install
 ```
 
-Step 3: Set the `subreddit_name`, `from_date_str` and `to_date_str` variables at the top of the `filter_file.py ` file. The subreddit_name will be the name of the subreddit that we want to extract the IDs for. The `from_date_str` and `to_date_str` are the start and end dates for the posts that we want to extract. The format for the dates is `YYYY-MM-DD` present as a string.
+**Step 3:** Set the `subreddit_name`, `from_date_str` and `to_date_str` variables at the top of the `filter_file.py ` file. The subreddit_name will be the name of the subreddit that we want to extract the IDs for. The `from_date_str` and `to_date_str` are the start and end dates for the posts that we want to extract. The format for the dates is `YYYY-MM-DD` present as a string.
 
 The input will be expected to be present in the `zst files` folder. The file name should be as {subreddit_name}_submissions.zst. `subreddit_name` in file name should be the same as the `subreddit_name` variable indicated above.
 
-Step 4: Run the script using the command:
+**Step 4:** Run the script using the command:
 
 ```
 python .\scripts\filter_file.py
 ```
 
-Step 5: The output can be found in the `output` folder. The output will be a text file with the name {subreddit_name}_ids.txt. This file will contain the IDs (one in each line) of all the posts made in the subreddit from the start date to the end date.
+**Step 5:** The output can be found in the `output` folder. The output will be a text file with the name {subreddit_name}_ids.txt. This file will contain the IDs (one in each line) of all the posts made in the subreddit from the start date to the end date.
